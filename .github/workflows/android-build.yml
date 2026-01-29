@@ -51,8 +51,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: Pre-Release v1.0.${{ github.run_number }}
+          tag_name: webtoapk
+          name: Pre-Release webtoapk
           body: "Automated build from changes in `www` folder."
           draft: false
           prerelease: true

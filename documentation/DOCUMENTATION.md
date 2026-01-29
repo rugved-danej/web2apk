@@ -1,6 +1,6 @@
 # Combined Project Documentation
 
-*Generated on: 1/30/2026, 12:29:34 AM*
+*Generated on: 1/30/2026, 12:52:08 AM*
 *Projects included: WebToApk*
 
 ## 📁 Combined Structure
@@ -184,7 +184,7 @@ Total files documented: 121
   29:       - name: Setup Node.js
   30:         uses: actions/setup-node@v4
   31:         with:
-  32:           node-version: '24'
+  32:           node-version: '22'
   33: 
   34:       - name: Install Dependencies
   35:         run: npm install
@@ -206,8 +206,8 @@ Total files documented: 121
   51:       - name: Create GitHub Release
   52:         uses: softprops/action-gh-release@v2
   53:         with:
-  54:           tag_name: v1.0.${{ github.run_number }}
-  55:           name: Pre-Release v1.0.${{ github.run_number }}
+  54:           tag_name: webtoapk
+  55:           name: Pre-Release webtoapk
   56:           body: "Automated build from changes in `www` folder."
   57:           draft: false
   58:           prerelease: true
