@@ -5,56 +5,75 @@ on:
     branches:
       - main
     paths:
-      - 'www/**'        # Trigger when website code changes
-      - 'android/**'    # Trigger when android config changes
-      - 'package.json'  # Trigger when dependencies change
+      - 'www/**'
+      - 'android/**'
+      - 'package.json'
       - '.github/workflows/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Required to create releases
+      contents: write  # Required to delete/create releases
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      # 1. OPTIMIZATION: Setup Java with powerful Gradle caching
+      # This saves time by reusing downloaded dependencies from previous runs.
+      - name: Set up Gradle & Java
+        uses: gradle/actions/setup-gradle@v3
         with:
           java-version: '21'
           distribution: 'temurin'
+          # specific gradle-build-action caching is automatic here
 
+      # 2. OPTIMIZATION: Cache NPM dependencies
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
+          cache: 'npm' # Caches node_modules
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci # 'npm ci' is faster and more reliable than 'npm install' for CI/CD
 
       - name: Sync Web Assets to Android
-        # This copies your 'www' folder into the Android project
         run: npx cap sync android
 
       - name: Build Android APK (Debug)
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          # build-cache is enabled by the setup-gradle action
+          ./gradlew assembleDebug --no-daemon
 
       - name: Rename APK for Release
         run: |
-          mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/webtoapk-v1.0.${{ github.run_number }}.apk
+          # Rename to a consistent filename or include date if preferred
+          mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/webtoapk.apk
 
-      - name: Create GitHub Release
+      # 3. LOGIC: Delete existing 'webtoapk' release/tag to force update
+      # This allows you to reuse the same tag name endlessly.
+      - name: Delete Existing Release and Tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete webtoapk --cleanup-tag --yes || true
+        # '|| true' ensures the step doesn't fail if the release doesn't exist yet (first run)
+
+      - name: Create Rolling Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: Pre-Release v1.0.${{ github.run_number }}
-          body: "Automated build from changes in `www` folder."
+          tag_name: webtoapk
+          name: "Latest WebToApk Build"
+          body: |
+            🚀 **Latest Build**
+            - Built from commit: ${{ github.sha }}
+            - Date: $(date)
           draft: false
           prerelease: true
+          make_latest: true
           files: |
-            android/app/build/outputs/apk/debug/webtoapk-v1.0.${{ github.run_number }}.apk
+            android/app/build/outputs/apk/debug/webtoapk.apk
