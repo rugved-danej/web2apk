@@ -1,11 +1,11 @@
 # Combined Project Documentation
 
-*Generated on: 1/30/2026, 12:52:08 AM*
+*Generated on: 1/30/2026, 1:06:00 AM*
 *Projects included: WebToApk*
 
 ## 📁 Combined Structure
 
-Total files documented: 121
+Total files documented: 123
 
 📦 Combined Project Structure
 ```
@@ -128,6 +128,8 @@ Total files documented: 121
 │   ├── gradlew.bat
 │   ├── settings.gradle
 │   └── variables.gradle
+├── assets
+│   └── icon.png
 ├── capacitor.config.json
 ├── package.json
 └── www
@@ -160,60 +162,70 @@ Total files documented: 121
    5:     branches:
    6:       - main
    7:     paths:
-   8:       - 'www/**'        # Trigger when website code changes
-   9:       - 'android/**'    # Trigger when android config changes
-  10:       - 'package.json'  # Trigger when dependencies change
-  11:       - '.github/workflows/**'
-  12: 
-  13: jobs:
-  14:   build:
-  15:     runs-on: ubuntu-latest
-  16:     permissions:
-  17:       contents: write  # Required to create releases
-  18: 
-  19:     steps:
-  20:       - name: Checkout Code
-  21:         uses: actions/checkout@v4
-  22: 
-  23:       - name: Set up JDK 21
-  24:         uses: actions/setup-java@v4
-  25:         with:
-  26:           java-version: '21'
-  27:           distribution: 'temurin'
-  28: 
-  29:       - name: Setup Node.js
-  30:         uses: actions/setup-node@v4
-  31:         with:
-  32:           node-version: '22'
-  33: 
-  34:       - name: Install Dependencies
-  35:         run: npm install
-  36: 
-  37:       - name: Sync Web Assets to Android
-  38:         # This copies your 'www' folder into the Android project
-  39:         run: npx cap sync android
-  40: 
-  41:       - name: Build Android APK (Debug)
-  42:         run: |
-  43:           cd android
-  44:           chmod +x gradlew
-  45:           ./gradlew assembleDebug
-  46: 
-  47:       - name: Rename APK for Release
-  48:         run: |
-  49:           mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/webtoapk-v1.0.${{ github.run_number }}.apk
+   8:       - 'www/**'
+   9:       - 'android/**'
+  10:       - 'package.json'
+  11:       - 'assets/**'     # 👈 Triggers build when you upload a new icon
+  12:       - '.github/workflows/**'
+  13: 
+  14: jobs:
+  15:   build:
+  16:     runs-on: ubuntu-latest
+  17:     permissions:
+  18:       contents: write
+  19: 
+  20:     steps:
+  21:       - name: Checkout Code
+  22:         uses: actions/checkout@v4
+  23: 
+  24:       - name: Set up JDK 21
+  25:         uses: actions/setup-java@v4
+  26:         with:
+  27:           java-version: '21'
+  28:           distribution: 'temurin'
+  29: 
+  30:       - name: Setup Node.js
+  31:         uses: actions/setup-node@v4
+  32:         with:
+  33:           node-version: '22'
+  34: 
+  35:       - name: Install Dependencies
+  36:         run: npm install
+  37: 
+  38:       # 👇 THIS IS THE NEW MAGIC STEP
+  39:       - name: Generate App Icons
+  40:         run: |
+  41:           if [ -f "assets/icon.png" ]; then
+  42:             echo "Icon found, generating Android resources..."
+  43:             npx capacitor-assets generate --android
+  44:           else
+  45:             echo "No custom icon found in assets/icon.png, skipping..."
+  46:           fi
+  47: 
+  48:       - name: Sync Web Assets to Android
+  49:         run: npx cap sync android
   50: 
-  51:       - name: Create GitHub Release
-  52:         uses: softprops/action-gh-release@v2
-  53:         with:
-  54:           tag_name: webtoapk
-  55:           name: Pre-Release webtoapk
-  56:           body: "Automated build from changes in `www` folder."
-  57:           draft: false
-  58:           prerelease: true
-  59:           files: |
-  60:             android/app/build/outputs/apk/debug/webtoapk-v1.0.${{ github.run_number }}.apk
-  61: 
+  51:       - name: Build Android APK (Debug)
+  52:         run: |
+  53:           cd android
+  54:           chmod +x gradlew
+  55:           ./gradlew assembleDebug
+  56: 
+  57:       - name: Rename APK for Release
+  58:         run: |
+  59:           mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/webtoapk.apk
+  60: 
+  61:       - name: Create GitHub Release
+  62:         uses: softprops/action-gh-release@v2
+  63:         with:
+  64:           tag_name: webtoapk
+  65:           name: Pre-Release webtoapk
+  66:           body: "Automated build. Latest changes from `www` and `assets`."
+  67:           draft: false
+  68:           prerelease: true
+  69:           files: |
+  70:             android/app/build/outputs/apk/debug/webtoapk.apk
+  71: 
 ```
 
 ---
@@ -2275,6 +2287,19 @@ Total files documented: 121
 
 ---
 
+## 📁 assets (WebToApk)
+
+**Path:** `WebToApk/assets`
+
+
+### 🖼️ icon.png
+
+**Path:** `WebToApk/assets/icon.png`
+
+*Binary file (content not displayed)*
+
+---
+
 ## 📋 capacitor.config.json
 
 **Path:** `WebToApk/capacitor.config.json`
@@ -2298,23 +2323,27 @@ Total files documented: 121
    1: {
    2:   "name": "webtoapk",
    3:   "version": "1.0.0",
-   4:   "description": "",
+   4:   "description": "Web to APK wrapper",
    5:   "main": "index.js",
    6:   "scripts": {
    7:     "build": "echo 'No build needed for simple HTML'",
-   8:     "test": "echo \"Error: no test specified\" && exit 1"
-   9:   },
-  10:   "keywords": [],
-  11:   "author": "",
-  12:   "license": "ISC",
-  13:   "type": "commonjs",
-  14:    "dependencies": {
-  15:     "@capacitor/android": "^8.0.2",
-  16:     "@capacitor/cli": "^8.0.2",
+   8:     "test": "echo \"Error: no test specified\" && exit 1",
+   9:     "resources": "capacitor-assets generate --android"
+  10:   },
+  11:   "keywords": [],
+  12:   "author": "",
+  13:   "license": "ISC",
+  14:   "type": "commonjs",
+  15:   "dependencies": {
+  16:     "@capacitor/android": "^8.0.2",
   17:     "@capacitor/core": "^8.0.2"
-  18:   }
-  19: }
-  20: 
+  18:   },
+  19:   "devDependencies": {
+  20:     "@capacitor/cli": "^8.0.2",
+  21:     "@capacitor/assets": "^3.0.5"
+  22:   }
+  23: }
+  24: 
 ```
 
 ---

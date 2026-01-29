@@ -5,16 +5,17 @@ on:
     branches:
       - main
     paths:
-      - 'www/**'        # Trigger when website code changes
-      - 'android/**'    # Trigger when android config changes
-      - 'package.json'  # Trigger when dependencies change
+      - 'www/**'
+      - 'android/**'
+      - 'package.json'
+      - 'assets/**'     # 👈 Triggers build when you upload a new icon
       - '.github/workflows/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Required to create releases
+      contents: write
 
     steps:
       - name: Checkout Code
@@ -34,8 +35,17 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      # 👇 THIS IS THE NEW MAGIC STEP
+      - name: Generate App Icons
+        run: |
+          if [ -f "assets/icon.png" ]; then
+            echo "Icon found, generating Android resources..."
+            npx capacitor-assets generate --android
+          else
+            echo "No custom icon found in assets/icon.png, skipping..."
+          fi
+
       - name: Sync Web Assets to Android
-        # This copies your 'www' folder into the Android project
         run: npx cap sync android
 
       - name: Build Android APK (Debug)
@@ -46,15 +56,15 @@ jobs:
 
       - name: Rename APK for Release
         run: |
-          mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/webtoapk-v1.0.${{ github.run_number }}.apk
+          mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/webtoapk.apk
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: webtoapk
           name: Pre-Release webtoapk
-          body: "Automated build from changes in `www` folder."
+          body: "Automated build. Latest changes from `www` and `assets`."
           draft: false
           prerelease: true
           files: |
-            android/app/build/outputs/apk/debug/webtoapk-v1.0.${{ github.run_number }}.apk
+            android/app/build/outputs/apk/debug/webtoapk.apk
