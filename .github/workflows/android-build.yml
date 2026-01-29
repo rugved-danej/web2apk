@@ -25,7 +25,7 @@ jobs:
       - name: Set up Gradle & Java
         uses: gradle/actions/setup-gradle@v3
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
           # specific gradle-build-action caching is automatic here
 
