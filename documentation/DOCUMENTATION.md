@@ -1,20 +1,21 @@
 # Combined Project Documentation
 
-*Generated on: 1/30/2026, 1:06:00 AM*
-*Projects included: WebToApk*
+*Generated on: 1/30/2026, 12:17:20 PM*
+*Projects included: web2apk*
 
 ## 📁 Combined Structure
 
-Total files documented: 123
+Total files documented: 124
 
 📦 Combined Project Structure
 ```
 
-📂 WebToApk/
+📂 web2apk/
 ├── .github
 │   └── workflows
 │       └── android-build.yml
 ├── .gitignore
+├── README.md
 ├── android
 │   ├── .gitignore
 │   ├── app
@@ -138,21 +139,21 @@ Total files documented: 123
 
 ## 📄 File Contents
 
-# 📦 Project: WebToApk
+# 📦 Project: web2apk
 
-## 📁 .github (WebToApk)
+## 📁 .github (web2apk)
 
-**Path:** `WebToApk/.github`
+**Path:** `web2apk/.github`
 
 
-### 📁 workflows (WebToApk)
+### 📁 workflows (web2apk)
 
-**Path:** `WebToApk/.github/workflows`
+**Path:** `web2apk/.github/workflows`
 
 
 #### ⚙️ android-build.yml
 
-**Path:** `WebToApk/.github/workflows/android-build.yml`
+**Path:** `web2apk/.github/workflows/android-build.yml`
 
 ```yml
    1: name: Build and Release APK
@@ -232,7 +233,7 @@ Total files documented: 123
 
 ## 📄 .gitignore
 
-**Path:** `WebToApk/.gitignore`
+**Path:** `web2apk/.gitignore`
 
 ```text
    1: ��n o d e _ m o d u l e s /  
@@ -242,14 +243,107 @@ Total files documented: 123
 
 ---
 
-## 📁 android (WebToApk)
+## 📖 README.md
 
-**Path:** `WebToApk/android`
+**Path:** `web2apk/README.md`
+
+```md
+   1: # 🚀 WebToApk: Turn Your Website into an Android App
+   2: 
+   3: ![Build Status](https://img.shields.io/badge/build-automated-brightgreen?style=flat-square&logo=github-actions)
+   4: ![Platform](https://img.shields.io/badge/platform-Android-3DDC84?style=flat-square&logo=android)
+   5: ![Capacitor](https://img.shields.io/badge/powered%20by-Capacitor-119EFF?style=flat-square&logo=capacitor)
+   6: 
+   7: **WebToApk** is a GitHub Template that allows you to convert any static website (HTML/CSS/JS) into a native Android APK automatically using GitHub Actions.
+   8: 
+   9: **No Android Studio or local environment required.** Just upload your code, and GitHub builds the app for you.
+  10: 
+  11: ## ⚡ Quick Start Guide
+  12: 
+  13: ### 1. Fork this Repository
+  14: Click the **Use this template** (or Fork) button at the top right of this page to create your own copy of this repository.
+  15: 
+  16: ### 2. Upload Your Website
+  17: Navigate to the `📂 www/` folder.
+  18: * Delete the existing `index.html`.
+  19: * Upload your website files here (HTML, CSS, JS, Images).
+  20: * **Important:** You must have an `index.html` file in the root of the `www` folder.
+  21: 
+  22: ### 3. Configure Your App
+  23: Open `📄 capacitor.config.json` in the root directory and edit the following:
+  24: 
+  25: ```json
+  26: {
+  27:   "appId": "com.yourname.projectname",  <-- Unique ID (e.g., com.coolapp.game)
+  28:   "appName": "My Cool App",             <-- The name visible on the phone home screen
+  29:   "webDir": "www"
+  30: }
+  31: ```
+  32: ### 4. Change the App Icon
+  33: Navigate to the 📂 assets/ folder.
+  34:  * Replace icon.png with your own logo.
+  35:  * Requirement: The image must be PNG format and at least 1024x1024 pixels.
+  36:  * The build system will automatically generate all necessary Android icon sizes for you.
+  37: ### 5. Download Your APK
+  38: Once you commit your changes (Step 2, 3, or 4), GitHub Actions will automatically start building your app.
+  39:  * Go to the Actions tab in your repository.
+  40:  * Click on the latest workflow run (e.g., "Build and Release APK").
+  41:  * Wait for the build to finish (usually 2-5 minutes).
+  42:  * Scroll down to the Artifacts section or check the Releases tab to download your webtoapk.apk.
+  43: ## 📂 Project Structure
+  44: Here is where the important files live:
+  45: | Path | Description |
+  46: |---|---|
+  47: | www/ | PUT YOUR WEBSITE HERE. Contains your HTML, CSS, and JS files. |
+  48: | assets/icon.png | PUT YOUR LOGO HERE. The master icon used to generate app icons. |
+  49: | capacitor.config.json | EDIT THIS. Configuration for App Name and ID. |
+  50: | android/ | The native Android project files (managed by Capacitor). |
+  51: | .github/workflows/ | The automation script that builds the APK in the cloud. |
+  52: ## ⚙️ Advanced Configuration
+  53: ### changing Permissions (Camera, Location, etc.)
+  54: By default, this template only includes Internet permissions. If your website needs access to the Camera or Geolocation, you must edit the Android Manifest.
+  55:  * Open android/app/src/main/AndroidManifest.xml.
+  56:  * Add your permissions before the <application> tag.
+  57: Example:
+  58: ```
+  59: <uses-permission android:name="android.permission.INTERNET" />
+  60: 
+  61: <uses-permission android:name="android.permission.CAMERA" />
+  62: <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  63: ```
+  64: ## Custom Splash Screen
+  65: Currently, the template uses a generated splash screen. To customize it manually:
+  66:  * Replace the files in android/app/src/main/res/drawable/splash.png (and the various dpi folders inside res).
+  67: 💻 Local Development (Optional)
+  68: If you prefer to build the app on your own computer, you need Node.js 22 and Android Studio.
+  69:  * Clone the repo:
+  70:    git clone [https://github.com/rugved-danej/web2apk.git](https://github.com/rugved-danej/web2apk.git)
+  71: cd web2apk
+  72: 
+  73:  * Install Dependencies:
+  74:    npm install
+  75: 
+  76:  * Sync Web Assets to Android:
+  77:    npx cap sync
+  78: 
+  79:  * Generate Icons:
+  80:    npm run resources
+  81: 
+  82:  * Open in Android Studio:
+  83:    npx cap open android
+  84: 
+```
+
+---
+
+## 📁 android (web2apk)
+
+**Path:** `web2apk/android`
 
 
 ### 📄 .gitignore
 
-**Path:** `WebToApk/android/.gitignore`
+**Path:** `web2apk/android/.gitignore`
 
 ```text
    1: # Using Android gitignore template: https://github.com/github/gitignore/blob/HEAD/Android.gitignore
@@ -358,14 +452,14 @@ Total files documented: 123
 
 ---
 
-### 📁 app (WebToApk)
+### 📁 app (web2apk)
 
-**Path:** `WebToApk/android/app`
+**Path:** `web2apk/android/app`
 
 
 #### 📄 .gitignore
 
-**Path:** `WebToApk/android/app/.gitignore`
+**Path:** `web2apk/android/app/.gitignore`
 
 ```text
    1: /build/*
@@ -377,7 +471,7 @@ Total files documented: 123
 
 #### 📄 build.gradle
 
-**Path:** `WebToApk/android/app/build.gradle`
+**Path:** `web2apk/android/app/build.gradle`
 
 ```gradle
    1: apply plugin: 'com.android.application'
@@ -441,7 +535,7 @@ Total files documented: 123
 
 #### 📄 capacitor.build.gradle
 
-**Path:** `WebToApk/android/app/capacitor.build.gradle`
+**Path:** `web2apk/android/app/capacitor.build.gradle`
 
 ```gradle
    1: // DO NOT EDIT THIS FILE! IT IS GENERATED EACH TIME "capacitor update" IS RUN
@@ -470,7 +564,7 @@ Total files documented: 123
 
 #### 📄 proguard-rules.pro
 
-**Path:** `WebToApk/android/app/proguard-rules.pro`
+**Path:** `web2apk/android/app/proguard-rules.pro`
 
 ```pro
    1: # Add project specific ProGuard rules here.
@@ -499,39 +593,39 @@ Total files documented: 123
 
 ---
 
-#### 📁 src (WebToApk)
+#### 📁 src (web2apk)
 
-**Path:** `WebToApk/android/app/src`
-
-
-##### 📁 androidTest (WebToApk)
-
-**Path:** `WebToApk/android/app/src/androidTest`
+**Path:** `web2apk/android/app/src`
 
 
-###### 📁 java (WebToApk)
+##### 📁 androidTest (web2apk)
 
-**Path:** `WebToApk/android/app/src/androidTest/java`
-
-
-####### 📁 com (WebToApk)
-
-**Path:** `WebToApk/android/app/src/androidTest/java/com`
+**Path:** `web2apk/android/app/src/androidTest`
 
 
-######## 📁 getcapacitor (WebToApk)
+###### 📁 java (web2apk)
 
-**Path:** `WebToApk/android/app/src/androidTest/java/com/getcapacitor`
+**Path:** `web2apk/android/app/src/androidTest/java`
 
 
-######### 📁 myapp (WebToApk)
+####### 📁 com (web2apk)
 
-**Path:** `WebToApk/android/app/src/androidTest/java/com/getcapacitor/myapp`
+**Path:** `web2apk/android/app/src/androidTest/java/com`
+
+
+######## 📁 getcapacitor (web2apk)
+
+**Path:** `web2apk/android/app/src/androidTest/java/com/getcapacitor`
+
+
+######### 📁 myapp (web2apk)
+
+**Path:** `web2apk/android/app/src/androidTest/java/com/getcapacitor/myapp`
 
 
 ########## 📄 ExampleInstrumentedTest.java
 
-**Path:** `WebToApk/android/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java`
+**Path:** `web2apk/android/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java`
 
 ```java
    1: package com.getcapacitor.myapp;
@@ -565,14 +659,14 @@ Total files documented: 123
 
 ---
 
-##### 📁 main (WebToApk)
+##### 📁 main (web2apk)
 
-**Path:** `WebToApk/android/app/src/main`
+**Path:** `web2apk/android/app/src/main`
 
 
 ###### 📄 AndroidManifest.xml
 
-**Path:** `WebToApk/android/app/src/main/AndroidManifest.xml`
+**Path:** `web2apk/android/app/src/main/AndroidManifest.xml`
 
 ```xml
    1: <?xml version="1.0" encoding="utf-8"?>
@@ -621,14 +715,14 @@ Total files documented: 123
 
 ---
 
-###### 📁 assets (WebToApk)
+###### 📁 assets (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/assets`
+**Path:** `web2apk/android/app/src/main/assets`
 
 
 ####### 📋 capacitor.config.json
 
-**Path:** `WebToApk/android/app/src/main/assets/capacitor.config.json`
+**Path:** `web2apk/android/app/src/main/assets/capacitor.config.json`
 
 ```json
    1: {
@@ -643,7 +737,7 @@ Total files documented: 123
 
 ####### 📋 capacitor.plugins.json
 
-**Path:** `WebToApk/android/app/src/main/assets/capacitor.plugins.json`
+**Path:** `web2apk/android/app/src/main/assets/capacitor.plugins.json`
 
 ```json
    1: []
@@ -652,14 +746,14 @@ Total files documented: 123
 
 ---
 
-####### 📁 public (WebToApk)
+####### 📁 public (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/assets/public`
+**Path:** `web2apk/android/app/src/main/assets/public`
 
 
 ######## 📄 cordova.js
 
-**Path:** `WebToApk/android/app/src/main/assets/public/cordova.js`
+**Path:** `web2apk/android/app/src/main/assets/public/cordova.js`
 
 ```javascript
    1: 
@@ -669,7 +763,7 @@ Total files documented: 123
 
 ######## 📄 cordova_plugins.js
 
-**Path:** `WebToApk/android/app/src/main/assets/public/cordova_plugins.js`
+**Path:** `web2apk/android/app/src/main/assets/public/cordova_plugins.js`
 
 ```javascript
    1: 
@@ -679,38 +773,37 @@ Total files documented: 123
 
 ######## 🌐 index.html
 
-**Path:** `WebToApk/android/app/src/main/assets/public/index.html`
+**Path:** `web2apk/android/app/src/main/assets/public/index.html`
 
 ```html
-   1: <html><body><h1>Hello World App!</h1></body></html>
-   2: 
+   1: <h1>This is Template</h1>
 ```
 
 ---
 
-###### 📁 java (WebToApk)
+###### 📁 java (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/java`
-
-
-####### 📁 com (WebToApk)
-
-**Path:** `WebToApk/android/app/src/main/java/com`
+**Path:** `web2apk/android/app/src/main/java`
 
 
-######## 📁 example (WebToApk)
+####### 📁 com (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/java/com/example`
+**Path:** `web2apk/android/app/src/main/java/com`
 
 
-######### 📁 app (WebToApk)
+######## 📁 example (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/java/com/example/app`
+**Path:** `web2apk/android/app/src/main/java/com/example`
+
+
+######### 📁 app (web2apk)
+
+**Path:** `web2apk/android/app/src/main/java/com/example/app`
 
 
 ########## 📄 MainActivity.java
 
-**Path:** `WebToApk/android/app/src/main/java/com/example/app/MainActivity.java`
+**Path:** `web2apk/android/app/src/main/java/com/example/app/MainActivity.java`
 
 ```java
    1: package com.example.app;
@@ -723,19 +816,19 @@ Total files documented: 123
 
 ---
 
-###### 📁 res (WebToApk)
+###### 📁 res (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res`
+**Path:** `web2apk/android/app/src/main/res`
 
 
-####### 📁 drawable (WebToApk)
+####### 📁 drawable (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable`
+**Path:** `web2apk/android/app/src/main/res/drawable`
 
 
 ######## 📄 ic_launcher_background.xml
 
-**Path:** `WebToApk/android/app/src/main/res/drawable/ic_launcher_background.xml`
+**Path:** `web2apk/android/app/src/main/res/drawable/ic_launcher_background.xml`
 
 ```xml
    1: <?xml version="1.0" encoding="utf-8"?>
@@ -915,150 +1008,150 @@ Total files documented: 123
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-land-hdpi (WebToApk)
+####### 📁 drawable-land-hdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-hdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-hdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-hdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-hdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-land-mdpi (WebToApk)
+####### 📁 drawable-land-mdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-mdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-mdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-mdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-mdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-land-xhdpi (WebToApk)
+####### 📁 drawable-land-xhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-xhdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-xhdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-xhdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-xhdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-land-xxhdpi (WebToApk)
+####### 📁 drawable-land-xxhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-xxhdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-xxhdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-xxhdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-xxhdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-land-xxxhdpi (WebToApk)
+####### 📁 drawable-land-xxxhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-xxxhdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-xxxhdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-land-xxxhdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-land-xxxhdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-port-hdpi (WebToApk)
+####### 📁 drawable-port-hdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-hdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-hdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-hdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-hdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-port-mdpi (WebToApk)
+####### 📁 drawable-port-mdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-mdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-mdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-mdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-mdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-port-xhdpi (WebToApk)
+####### 📁 drawable-port-xhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-xhdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-xhdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-xhdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-xhdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-port-xxhdpi (WebToApk)
+####### 📁 drawable-port-xxhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-xxhdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-xxhdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-xxhdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-xxhdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-port-xxxhdpi (WebToApk)
+####### 📁 drawable-port-xxxhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-xxxhdpi`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-xxxhdpi`
 
 
 ######## 🖼️ splash.png
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-port-xxxhdpi/splash.png`
+**Path:** `web2apk/android/app/src/main/res/drawable-port-xxxhdpi/splash.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 drawable-v24 (WebToApk)
+####### 📁 drawable-v24 (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-v24`
+**Path:** `web2apk/android/app/src/main/res/drawable-v24`
 
 
 ######## 📄 ic_launcher_foreground.xml
 
-**Path:** `WebToApk/android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml`
+**Path:** `web2apk/android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml`
 
 ```xml
    1: <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -1100,14 +1193,14 @@ Total files documented: 123
 
 ---
 
-####### 📁 layout (WebToApk)
+####### 📁 layout (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/layout`
+**Path:** `web2apk/android/app/src/main/res/layout`
 
 
 ######## 📄 activity_main.xml
 
-**Path:** `WebToApk/android/app/src/main/res/layout/activity_main.xml`
+**Path:** `web2apk/android/app/src/main/res/layout/activity_main.xml`
 
 ```xml
    1: <?xml version="1.0" encoding="utf-8"?>
@@ -1127,14 +1220,14 @@ Total files documented: 123
 
 ---
 
-####### 📁 mipmap-anydpi-v26 (WebToApk)
+####### 📁 mipmap-anydpi-v26 (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-anydpi-v26`
+**Path:** `web2apk/android/app/src/main/res/mipmap-anydpi-v26`
 
 
 ######## 📄 ic_launcher.xml
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml`
+**Path:** `web2apk/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml`
 
 ```xml
    1: <?xml version="1.0" encoding="utf-8"?>
@@ -1148,7 +1241,7 @@ Total files documented: 123
 
 ######## 📄 ic_launcher_round.xml
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml`
+**Path:** `web2apk/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml`
 
 ```xml
    1: <?xml version="1.0" encoding="utf-8"?>
@@ -1160,14 +1253,14 @@ Total files documented: 123
 
 ---
 
-####### 📁 mipmap-hdpi (WebToApk)
+####### 📁 mipmap-hdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-hdpi`
+**Path:** `web2apk/android/app/src/main/res/mipmap-hdpi`
 
 
 ######## 🖼️ ic_launcher.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-hdpi/ic_launcher.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-hdpi/ic_launcher.png`
 
 *Binary file (content not displayed)*
 
@@ -1175,7 +1268,7 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_foreground.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png`
 
 *Binary file (content not displayed)*
 
@@ -1183,20 +1276,20 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_round.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 mipmap-mdpi (WebToApk)
+####### 📁 mipmap-mdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-mdpi`
+**Path:** `web2apk/android/app/src/main/res/mipmap-mdpi`
 
 
 ######## 🖼️ ic_launcher.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-mdpi/ic_launcher.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-mdpi/ic_launcher.png`
 
 *Binary file (content not displayed)*
 
@@ -1204,7 +1297,7 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_foreground.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png`
 
 *Binary file (content not displayed)*
 
@@ -1212,20 +1305,20 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_round.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 mipmap-xhdpi (WebToApk)
+####### 📁 mipmap-xhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xhdpi`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xhdpi`
 
 
 ######## 🖼️ ic_launcher.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png`
 
 *Binary file (content not displayed)*
 
@@ -1233,7 +1326,7 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_foreground.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png`
 
 *Binary file (content not displayed)*
 
@@ -1241,20 +1334,20 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_round.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 mipmap-xxhdpi (WebToApk)
+####### 📁 mipmap-xxhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xxhdpi`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xxhdpi`
 
 
 ######## 🖼️ ic_launcher.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png`
 
 *Binary file (content not displayed)*
 
@@ -1262,7 +1355,7 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_foreground.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png`
 
 *Binary file (content not displayed)*
 
@@ -1270,20 +1363,20 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_round.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 mipmap-xxxhdpi (WebToApk)
+####### 📁 mipmap-xxxhdpi (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xxxhdpi`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xxxhdpi`
 
 
 ######## 🖼️ ic_launcher.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png`
 
 *Binary file (content not displayed)*
 
@@ -1291,7 +1384,7 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_foreground.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png`
 
 *Binary file (content not displayed)*
 
@@ -1299,20 +1392,20 @@ Total files documented: 123
 
 ######## 🖼️ ic_launcher_round.png
 
-**Path:** `WebToApk/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png`
+**Path:** `web2apk/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png`
 
 *Binary file (content not displayed)*
 
 ---
 
-####### 📁 values (WebToApk)
+####### 📁 values (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/values`
+**Path:** `web2apk/android/app/src/main/res/values`
 
 
 ######## 📄 ic_launcher_background.xml
 
-**Path:** `WebToApk/android/app/src/main/res/values/ic_launcher_background.xml`
+**Path:** `web2apk/android/app/src/main/res/values/ic_launcher_background.xml`
 
 ```xml
    1: <?xml version="1.0" encoding="utf-8"?>
@@ -1325,7 +1418,7 @@ Total files documented: 123
 
 ######## 📄 strings.xml
 
-**Path:** `WebToApk/android/app/src/main/res/values/strings.xml`
+**Path:** `web2apk/android/app/src/main/res/values/strings.xml`
 
 ```xml
    1: <?xml version='1.0' encoding='utf-8'?>
@@ -1342,7 +1435,7 @@ Total files documented: 123
 
 ######## 📄 styles.xml
 
-**Path:** `WebToApk/android/app/src/main/res/values/styles.xml`
+**Path:** `web2apk/android/app/src/main/res/values/styles.xml`
 
 ```xml
    1: <?xml version="1.0" encoding="utf-8"?>
@@ -1371,14 +1464,14 @@ Total files documented: 123
 
 ---
 
-####### 📁 xml (WebToApk)
+####### 📁 xml (web2apk)
 
-**Path:** `WebToApk/android/app/src/main/res/xml`
+**Path:** `web2apk/android/app/src/main/res/xml`
 
 
 ######## 📄 config.xml
 
-**Path:** `WebToApk/android/app/src/main/res/xml/config.xml`
+**Path:** `web2apk/android/app/src/main/res/xml/config.xml`
 
 ```xml
    1: <?xml version='1.0' encoding='utf-8'?>
@@ -1393,7 +1486,7 @@ Total files documented: 123
 
 ######## 📄 file_paths.xml
 
-**Path:** `WebToApk/android/app/src/main/res/xml/file_paths.xml`
+**Path:** `web2apk/android/app/src/main/res/xml/file_paths.xml`
 
 ```xml
    1: <?xml version="1.0" encoding="utf-8"?>
@@ -1405,34 +1498,34 @@ Total files documented: 123
 
 ---
 
-##### 📁 test (WebToApk)
+##### 📁 test (web2apk)
 
-**Path:** `WebToApk/android/app/src/test`
-
-
-###### 📁 java (WebToApk)
-
-**Path:** `WebToApk/android/app/src/test/java`
+**Path:** `web2apk/android/app/src/test`
 
 
-####### 📁 com (WebToApk)
+###### 📁 java (web2apk)
 
-**Path:** `WebToApk/android/app/src/test/java/com`
-
-
-######## 📁 getcapacitor (WebToApk)
-
-**Path:** `WebToApk/android/app/src/test/java/com/getcapacitor`
+**Path:** `web2apk/android/app/src/test/java`
 
 
-######### 📁 myapp (WebToApk)
+####### 📁 com (web2apk)
 
-**Path:** `WebToApk/android/app/src/test/java/com/getcapacitor/myapp`
+**Path:** `web2apk/android/app/src/test/java/com`
+
+
+######## 📁 getcapacitor (web2apk)
+
+**Path:** `web2apk/android/app/src/test/java/com/getcapacitor`
+
+
+######### 📁 myapp (web2apk)
+
+**Path:** `web2apk/android/app/src/test/java/com/getcapacitor/myapp`
 
 
 ########## 📄 ExampleUnitTest.java
 
-**Path:** `WebToApk/android/app/src/test/java/com/getcapacitor/myapp/ExampleUnitTest.java`
+**Path:** `web2apk/android/app/src/test/java/com/getcapacitor/myapp/ExampleUnitTest.java`
 
 ```java
    1: package com.getcapacitor.myapp;
@@ -1460,7 +1553,7 @@ Total files documented: 123
 
 ### 📄 build.gradle
 
-**Path:** `WebToApk/android/build.gradle`
+**Path:** `web2apk/android/build.gradle`
 
 ```gradle
    1: // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -1497,14 +1590,14 @@ Total files documented: 123
 
 ---
 
-### 📁 capacitor-cordova-android-plugins (WebToApk)
+### 📁 capacitor-cordova-android-plugins (web2apk)
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins`
 
 
 #### 📄 build.gradle
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/build.gradle`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/build.gradle`
 
 ```gradle
    1: ext {
@@ -1572,7 +1665,7 @@ Total files documented: 123
 
 #### 📄 cordova.variables.gradle
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/cordova.variables.gradle`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/cordova.variables.gradle`
 
 ```gradle
    1: // DO NOT EDIT THIS FILE! IT IS GENERATED EACH TIME "capacitor update" IS RUN
@@ -1586,19 +1679,19 @@ Total files documented: 123
 
 ---
 
-#### 📁 src (WebToApk)
+#### 📁 src (web2apk)
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/src`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/src`
 
 
-##### 📁 main (WebToApk)
+##### 📁 main (web2apk)
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/src/main`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/src/main`
 
 
 ###### 📄 AndroidManifest.xml
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml`
 
 ```xml
    1: <?xml version='1.0' encoding='utf-8'?>
@@ -1613,14 +1706,14 @@ Total files documented: 123
 
 ---
 
-###### 📁 java (WebToApk)
+###### 📁 java (web2apk)
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/src/main/java`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/src/main/java`
 
 
 ####### 📄 .gitkeep
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/src/main/java/.gitkeep`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/src/main/java/.gitkeep`
 
 ```text
    1: 
@@ -1628,14 +1721,14 @@ Total files documented: 123
 
 ---
 
-###### 📁 res (WebToApk)
+###### 📁 res (web2apk)
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/src/main/res`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/src/main/res`
 
 
 ####### 📄 .gitkeep
 
-**Path:** `WebToApk/android/capacitor-cordova-android-plugins/src/main/res/.gitkeep`
+**Path:** `web2apk/android/capacitor-cordova-android-plugins/src/main/res/.gitkeep`
 
 ```text
    1: 
@@ -1646,7 +1739,7 @@ Total files documented: 123
 
 ### 📄 capacitor.settings.gradle
 
-**Path:** `WebToApk/android/capacitor.settings.gradle`
+**Path:** `web2apk/android/capacitor.settings.gradle`
 
 ```gradle
    1: // DO NOT EDIT THIS FILE! IT IS GENERATED EACH TIME "capacitor update" IS RUN
@@ -1657,19 +1750,19 @@ Total files documented: 123
 
 ---
 
-### 📁 gradle (WebToApk)
+### 📁 gradle (web2apk)
 
-**Path:** `WebToApk/android/gradle`
+**Path:** `web2apk/android/gradle`
 
 
-#### 📁 wrapper (WebToApk)
+#### 📁 wrapper (web2apk)
 
-**Path:** `WebToApk/android/gradle/wrapper`
+**Path:** `web2apk/android/gradle/wrapper`
 
 
 ##### 📄 gradle-wrapper.jar
 
-**Path:** `WebToApk/android/gradle/wrapper/gradle-wrapper.jar`
+**Path:** `web2apk/android/gradle/wrapper/gradle-wrapper.jar`
 
 ```jar
    1: PK    !              	 META-INF/LICENSEUT     �Z[s�6~ϯ�hfg�FI���}Rc�U7�3���>B$(aC,@Z���=�(�N�u=�֢���s��w�J|�g��r��]�ΩW/��/e�6��v����n��(�}���g퇡��͛��0�����ݛ��ro^�������X݈ww�����n�����as[��������;|\�[7���z��>!��ō�u�P��_ymf�D3���iD�d'8�l��*Q���U�6V�Nªޚj,�q�Eổv�����D�[�Jl�b�J�ȷf������A�{�[��z{�Xi��ջ� ̡SV�J�PG!�ao�����\Z1�� `ӝ�����K��j'qK�ϔ;< i��,IJ�� �z1^�
@@ -1836,7 +1929,7 @@ Total files documented: 123
 
 ##### 📄 gradle-wrapper.properties
 
-**Path:** `WebToApk/android/gradle/wrapper/gradle-wrapper.properties`
+**Path:** `web2apk/android/gradle/wrapper/gradle-wrapper.properties`
 
 ```properties
    1: distributionBase=GRADLE_USER_HOME
@@ -1853,7 +1946,7 @@ Total files documented: 123
 
 ### 📄 gradle.properties
 
-**Path:** `WebToApk/android/gradle.properties`
+**Path:** `web2apk/android/gradle.properties`
 
 ```properties
    1: # Project-wide Gradle settings.
@@ -1885,7 +1978,7 @@ Total files documented: 123
 
 ### 📄 gradlew
 
-**Path:** `WebToApk/android/gradlew`
+**Path:** `web2apk/android/gradlew`
 
 ```text
    1: #!/bin/sh
@@ -2146,7 +2239,7 @@ Total files documented: 123
 
 ### 📄 gradlew.bat
 
-**Path:** `WebToApk/android/gradlew.bat`
+**Path:** `web2apk/android/gradlew.bat`
 
 ```bat
    1: @rem
@@ -2250,7 +2343,7 @@ Total files documented: 123
 
 ### 📄 settings.gradle
 
-**Path:** `WebToApk/android/settings.gradle`
+**Path:** `web2apk/android/settings.gradle`
 
 ```gradle
    1: include ':app'
@@ -2264,7 +2357,7 @@ Total files documented: 123
 
 ### 📄 variables.gradle
 
-**Path:** `WebToApk/android/variables.gradle`
+**Path:** `web2apk/android/variables.gradle`
 
 ```gradle
    1: ext {
@@ -2287,14 +2380,14 @@ Total files documented: 123
 
 ---
 
-## 📁 assets (WebToApk)
+## 📁 assets (web2apk)
 
-**Path:** `WebToApk/assets`
+**Path:** `web2apk/assets`
 
 
 ### 🖼️ icon.png
 
-**Path:** `WebToApk/assets/icon.png`
+**Path:** `web2apk/assets/icon.png`
 
 *Binary file (content not displayed)*
 
@@ -2302,7 +2395,7 @@ Total files documented: 123
 
 ## 📋 capacitor.config.json
 
-**Path:** `WebToApk/capacitor.config.json`
+**Path:** `web2apk/capacitor.config.json`
 
 ```json
    1: {
@@ -2317,7 +2410,7 @@ Total files documented: 123
 
 ## 📋 package.json
 
-**Path:** `WebToApk/package.json`
+**Path:** `web2apk/package.json`
 
 ```json
    1: {
@@ -2339,27 +2432,174 @@ Total files documented: 123
   17:     "@capacitor/core": "^8.0.2"
   18:   },
   19:   "devDependencies": {
-  20:     "@capacitor/cli": "^8.0.2",
-  21:     "@capacitor/assets": "^3.0.5"
-  22:   }
-  23: }
-  24: 
+  20:     "@capacitor/cli": "^8.0.2"
+  21:   }
+  22: }
+  23: 
 ```
 
 ---
 
-## 📁 www (WebToApk)
+## 📁 www (web2apk)
 
-**Path:** `WebToApk/www`
+**Path:** `web2apk/www`
 
 
 ### 🌐 index.html
 
-**Path:** `WebToApk/www/index.html`
+**Path:** `web2apk/www/index.html`
 
 ```html
-   1: <html><body><h1>Hello World App!</h1></body></html>
-   2: 
+   1: <!DOCTYPE html>
+   2: <html lang="en">
+   3: <head>
+   4:     <meta charset="UTF-8">
+   5:     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+   6:     <title>WebToApk Demo</title>
+   7:     <style>
+   8:         :root {
+   9:             --primary: #0046be; /* Bank Blue */
+  10:             --bg: #f4f5f7;
+  11:             --card: #ffffff;
+  12:             --text: #333333;
+  13:         }
+  14:         body {
+  15:             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  16:             background-color: var(--bg);
+  17:             margin: 0;
+  18:             padding: 0;
+  19:             color: var(--text);
+  20:             display: flex;
+  21:             flex-direction: column;
+  22:             align-items: center;
+  23:             height: 100vh;
+  24:         }
+  25:         .header {
+  26:             background: linear-gradient(135deg, var(--primary), #002a72);
+  27:             color: white;
+  28:             width: 100%;
+  29:             padding: 40px 20px 20px;
+  30:             text-align: center;
+  31:             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  32:             border-bottom-left-radius: 20px;
+  33:             border-bottom-right-radius: 20px;
+  34:         }
+  35:         .header h1 { margin: 0; font-size: 24px; font-weight: 600; }
+  36:         .header p { margin: 5px 0 0; opacity: 0.9; font-size: 14px; }
+  37:         
+  38:         .container {
+  39:             padding: 20px;
+  40:             width: 100%;
+  41:             max-width: 400px;
+  42:             box-sizing: border-box;
+  43:         }
+  44: 
+  45:         .card {
+  46:             background: var(--card);
+  47:             border-radius: 12px;
+  48:             padding: 20px;
+  49:             margin-bottom: 16px;
+  50:             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  51:             text-align: center;
+  52:         }
+  53: 
+  54:         .status-dot {
+  55:             height: 10px;
+  56:             width: 10px;
+  57:             background-color: #28a745;
+  58:             border-radius: 50%;
+  59:             display: inline-block;
+  60:             margin-right: 6px;
+  61:         }
+  62: 
+  63:         button {
+  64:             background-color: var(--primary);
+  65:             color: white;
+  66:             border: none;
+  67:             padding: 12px 24px;
+  68:             border-radius: 8px;
+  69:             font-size: 16px;
+  70:             font-weight: 500;
+  71:             width: 100%;
+  72:             cursor: pointer;
+  73:             transition: opacity 0.2s;
+  74:         }
+  75:         button:active { opacity: 0.8; }
+  76:         
+  77:         .code-block {
+  78:             background: #eee;
+  79:             padding: 10px;
+  80:             border-radius: 6px;
+  81:             font-family: monospace;
+  82:             font-size: 12px;
+  83:             text-align: left;
+  84:             margin-top: 10px;
+  85:             color: #555;
+  86:         }
+  87:     </style>
+  88: </head>
+  89: <body>
+  90: 
+  91:     <div class="header">
+  92:         <h1>WebToApk</h1>
+  93:         <p>Native Wrapper Template</p>
+  94:     </div>
+  95: 
+  96:     <div class="container">
+  97:         <div class="card">
+  98:             <h3>App Status</h3>
+  99:             <p><span class="status-dot"></span>System Operational</p>
+ 100:             <p style="font-size: 13px; color: #666;">Running on Android WebView</p>
+ 101:         </div>
+ 102: 
+ 103:         <div class="card">
+ 104:             <h3>Native Bridge</h3>
+ 105:             <p>Test the connection between JS and Java.</p>
+ 106:             <button id="toastBtn">Show Native Toast</button>
+ 107:         </div>
+ 108: 
+ 109:         <div class="card">
+ 110:             <h3>Hardware Back Button</h3>
+ 111:             <div class="code-block">
+ 112:                 Logic Active:<br>
+ 113:                 1. Checks History<br>
+ 114:                 2. Goes Back OR<br>
+ 115:                 3. Exits App (if no history)
+ 116:             </div>
+ 117:         </div>
+ 118:     </div>
+ 119: 
+ 120:     <script type="module">
+ 121:         // Import Capacitor Core from CDN for this demo file
+ 122:         // Note: In production, use 'npm install' and a bundler (Vite/Webpack)
+ 123:         import { App } from 'https://cdn.jsdelivr.net/npm/@capacitor/app@6.0.0/+esm';
+ 124:         import { Toast } from 'https://cdn.jsdelivr.net/npm/@capacitor/toast@6.0.0/+esm';
+ 125: 
+ 126:         // 1. Handle "Back Button" Problem
+ 127:         App.addListener('backButton', ({ canGoBack }) => {
+ 128:             if (canGoBack) {
+ 129:                 // If the WebView has history, go back
+ 130:                 window.history.back();
+ 131:             } else {
+ 132:                 // If no history, exit the app (instead of minimizing or doing nothing)
+ 133:                 App.exitApp();
+ 134:             }
+ 135:         });
+ 136: 
+ 137:         // 2. Handle Native Toast Demo
+ 138:         document.getElementById('toastBtn').addEventListener('click', async () => {
+ 139:             await Toast.show({
+ 140:                 text: 'Hello from Native Android!',
+ 141:                 duration: 'short',
+ 142:                 position: 'bottom'
+ 143:             });
+ 144:         });
+ 145: 
+ 146:         console.log('WebToApk listeners initialized.');
+ 147:     </script>
+ 148: </body>
+ 149: </html>
+ 150: 
 ```
 
 ---
