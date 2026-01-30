@@ -1,6 +1,6 @@
 # Combined Project Documentation
 
-*Generated on: 1/30/2026, 12:17:20 PM*
+*Generated on: 1/30/2026, 12:31:15 PM*
 *Projects included: web2apk*
 
 ## 📁 Combined Structure
@@ -162,71 +162,67 @@ Total files documented: 124
    4:   push:
    5:     branches:
    6:       - main
-   7:     paths:
-   8:       - 'www/**'
-   9:       - 'android/**'
-  10:       - 'package.json'
-  11:       - 'assets/**'     # 👈 Triggers build when you upload a new icon
-  12:       - '.github/workflows/**'
-  13: 
-  14: jobs:
-  15:   build:
-  16:     runs-on: ubuntu-latest
-  17:     permissions:
-  18:       contents: write
+   7:   # Allows you to run this workflow manually from the Actions tab
+   8:   workflow_dispatch:
+   9: 
+  10: jobs:
+  11:   build:
+  12:     runs-on: ubuntu-latest
+  13:     permissions:
+  14:       contents: write
+  15: 
+  16:     steps:
+  17:       - name: Checkout Code
+  18:         uses: actions/checkout@v4
   19: 
-  20:     steps:
-  21:       - name: Checkout Code
-  22:         uses: actions/checkout@v4
-  23: 
-  24:       - name: Set up JDK 21
-  25:         uses: actions/setup-java@v4
-  26:         with:
-  27:           java-version: '21'
-  28:           distribution: 'temurin'
-  29: 
-  30:       - name: Setup Node.js
-  31:         uses: actions/setup-node@v4
-  32:         with:
-  33:           node-version: '22'
-  34: 
-  35:       - name: Install Dependencies
-  36:         run: npm install
-  37: 
-  38:       # 👇 THIS IS THE NEW MAGIC STEP
-  39:       - name: Generate App Icons
-  40:         run: |
-  41:           if [ -f "assets/icon.png" ]; then
-  42:             echo "Icon found, generating Android resources..."
-  43:             npx capacitor-assets generate --android
-  44:           else
-  45:             echo "No custom icon found in assets/icon.png, skipping..."
-  46:           fi
-  47: 
-  48:       - name: Sync Web Assets to Android
-  49:         run: npx cap sync android
-  50: 
-  51:       - name: Build Android APK (Debug)
-  52:         run: |
-  53:           cd android
-  54:           chmod +x gradlew
-  55:           ./gradlew assembleDebug
+  20:       - name: Set up JDK 21
+  21:         uses: actions/setup-java@v4
+  22:         with:
+  23:           java-version: '21'
+  24:           distribution: 'temurin'
+  25: 
+  26:       - name: Setup Node.js
+  27:         uses: actions/setup-node@v4
+  28:         with:
+  29:           node-version: '22'
+  30: 
+  31:       - name: Install Dependencies
+  32:         run: npm install
+  33: 
+  34:       # Checks if you provided a custom icon and generates Android sizes
+  35:       - name: Generate App Icons
+  36:         run: |
+  37:           if [ -f "assets/icon.png" ]; then
+  38:             echo "Icon found, generating Android resources..."
+  39:             npx capacitor-assets generate --android
+  40:           else
+  41:             echo "No custom icon found in assets/icon.png, skipping..."
+  42:           fi
+  43: 
+  44:       - name: Sync Web Assets to Android
+  45:         run: npx cap sync android
+  46: 
+  47:       - name: Build Android APK (Debug)
+  48:         run: |
+  49:           cd android
+  50:           chmod +x gradlew
+  51:           ./gradlew assembleDebug
+  52: 
+  53:       - name: Rename APK for Release
+  54:         run: |
+  55:           mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/webtoapk.apk
   56: 
-  57:       - name: Rename APK for Release
-  58:         run: |
-  59:           mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/webtoapk.apk
-  60: 
-  61:       - name: Create GitHub Release
-  62:         uses: softprops/action-gh-release@v2
-  63:         with:
-  64:           tag_name: webtoapk
-  65:           name: Pre-Release webtoapk
-  66:           body: "Automated build. Latest changes from `www` and `assets`."
-  67:           draft: false
-  68:           prerelease: true
-  69:           files: |
-  70:             android/app/build/outputs/apk/debug/webtoapk.apk
-  71: 
+  57:       - name: Create GitHub Release
+  58:         uses: softprops/action-gh-release@v2
+  59:         with:
+  60:           tag_name: webtoapk
+  61:           name: Pre-Release webtoapk
+  62:           body: "Automated build. Latest changes from `www` and `assets`."
+  63:           draft: false
+  64:           prerelease: true
+  65:           files: |
+  66:             android/app/build/outputs/apk/debug/webtoapk.apk
+  67: 
 ```
 
 ---

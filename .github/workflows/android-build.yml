@@ -4,12 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'www/**'
-      - 'android/**'
-      - 'package.json'
-      - 'assets/**'     # 👈 Triggers build when you upload a new icon
-      - '.github/workflows/**'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build:
@@ -35,7 +31,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # 👇 THIS IS THE NEW MAGIC STEP
+      # Checks if you provided a custom icon and generates Android sizes
       - name: Generate App Icons
         run: |
           if [ -f "assets/icon.png" ]; then
