@@ -1,6 +1,6 @@
 # Combined Project Documentation
 
-*Generated on: 1/30/2026, 12:43:30 PM*
+*Generated on: 1/30/2026, 12:45:10 PM*
 *Projects included: web2apk*
 
 ## 📁 Combined Structure
@@ -232,9 +232,8 @@ Total files documented: 124
 **Path:** `web2apk/.gitignore`
 
 ```text
-   1: ��n o d e _ m o d u l e s /  
-   2:  a n d r o i d / a p p / b u i l d /  
-   3:  
+   1: node_modules
+   2: package-lock.json
 ```
 
 ---
