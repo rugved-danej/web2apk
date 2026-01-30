@@ -1,6 +1,6 @@
 # Combined Project Documentation
 
-*Generated on: 1/30/2026, 12:31:15 PM*
+*Generated on: 1/30/2026, 12:43:30 PM*
 *Projects included: web2apk*
 
 ## 📁 Combined Structure
@@ -2428,10 +2428,11 @@ Total files documented: 124
   17:     "@capacitor/core": "^8.0.2"
   18:   },
   19:   "devDependencies": {
-  20:     "@capacitor/cli": "^8.0.2"
-  21:   }
-  22: }
-  23: 
+  20:     "@capacitor/assets": "^3.0.5",
+  21:     "@capacitor/cli": "^8.0.2"
+  22:   }
+  23: }
+  24: 
 ```
 
 ---
